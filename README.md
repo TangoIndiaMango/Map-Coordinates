@@ -1,5 +1,11 @@
 # Map Coordinates
 
+### Note
+
+Live Url of the app can be found [Here](https://map-coords.netlify.app/)
+
+Loom Video on how it works [Click Here](https://www.loom.com/share/5d988ca9f2154441b43e62e2e78c2625?sid=84c59044-af33-447a-a754-e6cc00a17b70)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
 
 ## Development server
@@ -26,6 +32,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-### Note
 
-Live Url of the app can be found [Here](https://map-coords.netlify.app/)
