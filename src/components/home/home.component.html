@@ -1,0 +1,64 @@
+<main class="h-screen p-5">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold mb-4">Coordinate Mapping</h1>
+      <h3 class="text-xl font-semibold mb-6">Explore and Manage Coordinates</h3>
+    </div>
+
+    <div>
+      <user-dialog (saveCoordinates)="updateLocation($event)"></user-dialog>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex gap-2">
+      <button
+        (click)="pickCoordinates()"
+        class="inline-flex items-center gap-3 text-xs text-white rounded bg-neutral-600 p-3 hover:bg-neutral-950 w-30 h-10"
+        [class.active]="isActive"
+        title="Click to pick coordinates"
+      >
+        <i class="pi pi-map-marker"></i> Pick Coordinates
+      </button>
+
+      <button (click)="clearLastCoordinate()" class="btn-secondary">
+        <i class="pi pi-delete-left"></i> Clear Last
+      </button>
+      <button
+        (click)="calculateEnclosedArea()"
+        class="inline-flex items-center p-2 gap-3 text-xs text-white rounded bg-neutral-600 hover:bg-neutral-950 w-30 h-10"
+      >
+        <i class="pi pi-chart-bar"></i> Calculate Area
+      </button>
+
+      <button
+        (click)="panToNextMarker()"
+        class="inline-flex items-center p-2 gap-3 text-xs text-white rounded bg-neutral-600 hover:bg-neutral-950 w-30 h-10"
+      >
+        <i class="pi pi-forward"></i> Next Marker
+      </button>
+
+      <button
+        (click)="resetMap()"
+        class="inline-flex items-center p-2 gap-3 text-xs text-white rounded bg-neutral-600 hover:bg-neutral-950 w-30 h-10"
+      >
+        <i class="pi pi-refresh"></i> Reset
+      </button>
+    </div>
+
+    <div class="flex items-center justify-center gap-5">
+      <a
+        routerLink="/add"
+        class="inline-flex items-center px-4 py-2 gap-3 text-xs text-white rounded bg-neutral-800 hover:bg-neutral-950 w-30 h-10"
+      >
+        <i class="pi pi-plus"></i> Add Location
+      </a>
+    </div>
+  </div>
+
+  <div class="p-5">
+    <div id="map" class="map-container"></div>
+  </div>
+
+  <p-toast position="top-right" />
+</main>

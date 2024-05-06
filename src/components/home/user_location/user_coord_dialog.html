@@ -1,0 +1,91 @@
+<div class="w-full h-full">
+  <button
+    (click)="showDialog()"
+    class="text-sm text-white rounded bg-neutral-800 p-3 hover:bg-neutral-950 w-30 h-10"
+  >
+    Get My Location
+  </button>
+  <p-dialog
+    header="Get My Location"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '25rem' }"
+  >
+    <p class="text-light pb-5 italic">Provide the Coordinates.</p>
+    <form
+      class="w-full h-full flex flex-col gap-6"
+      [formGroup]="form"
+      (ngSubmit)="onSave()"
+    >
+      <div class="p-float-label !m-0 h-full">
+        <input
+          type="text"
+          pInputText
+          class="outline p-2 rounded"
+          formControlName="lat"
+        />
+        <label for="lat" class="text-sm">Latitude</label>
+        <div
+          *ngIf="latForm?.invalid && (latForm?.dirty || latForm?.touched)"
+          class="text-xs italic text-red-500"
+        >
+          <div *ngIf="latForm?.errors?.['required']">Latitude is required.</div>
+          <div *ngIf="latForm?.hasError('pattern')">Latitude must be a valid number.</div>
+          <div *ngIf="latForm?.errors?.['min'] || latForm?.errors?.['max']">
+            Latitude must be between -90 and 90.
+          </div>
+
+        </div>
+      </div>
+      <div class="p-float-label !m-0 h-full">
+        <input
+          type="text"
+          pInputText
+          class="outline p-2 rounded"
+          formControlName="lng"
+        />
+        <label for="lng" class="text-sm">Longitude</label>
+        <div
+          *ngIf="lngForm?.invalid && (lngForm?.dirty || lngForm?.touched)"
+          class="text-xs italic text-red-500"
+        >
+          <div *ngIf="lngForm?.errors?.['required']">
+            Longitude is required.
+          </div>
+          <div *ngIf="lngForm?.hasError('pattern')">
+            Longitude must be a valid number.
+          </div>
+          <div *ngIf="lngForm?.errors?.['min'] || lngForm?.errors?.['max']">
+            Longitude must be between -180 and 180.
+          </div>
+
+        </div>
+      </div>
+      <div class="flex gap-2 items-center">
+        <input
+        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+          type="checkbox"
+          formControlName="generateCoordinate"
+          (change)="onGenerate()"
+        />
+        <label for="generateCoordinate" class="text-sm font-medium text-gray-900">Generate Coordinates</label>
+      </div>
+
+      <div class="flex justify-end gap-2 items-center">
+        <button
+          type="button"
+          class="text-xs text-black rounded outline p-2 hover:bg-black/40  hover:text-white"
+          (click)="closeDialog()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="text-xs text-white rounded outline bg-neutral-800 p-2 hover:bg-neutral-950"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </p-dialog>
+</div>

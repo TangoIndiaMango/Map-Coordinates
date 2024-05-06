@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@layer tailwind-base, primeng, tailwind-utilities;
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+.active{
+  background-color: black;
+}
+
+.btn-primary {
+  @apply inline-flex items-center px-4 py-2 gap-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center px-4 py-2 gap-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-neutral-600 hover:bg-neutral-700 focus:outline-none focus:bg-neutral-950 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500;
+}
+
+.map-container {
+  @apply h-screen w-full text-sm bg-gray-100 rounded-md shadow-md;
+}
