@@ -41,6 +41,7 @@ export class MapService {
   initMap(mapElement: string): Leaflet.Map {
     this.map = Leaflet.map(mapElement, this.options);
     this.map.addLayer(this.getLayers()[0]);
+    this.map.invalidateSize()
     return this.map
   }
 

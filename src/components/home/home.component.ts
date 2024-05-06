@@ -14,11 +14,12 @@ import { Location, LocationService } from '../../services/location.service';
 import { MapService } from '../../services/map.service';
 import { NotificationService } from '../../services/notification.service';
 import { UserDialogComponent } from './user_location/user_cord_dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ToastModule, LeafletModule, RouterLink, UserDialogComponent],
+  imports: [ToastModule, LeafletModule, RouterLink, UserDialogComponent, CommonModule],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
   loading: boolean = true;
   isActive: boolean = false;
   newCoordinates: any = null;
-  // @ViewChild('map', { static: true }) mapContainer!: ElementRef<HTMLElement>;
+  @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef<HTMLElement>;
   constructor(
     private notificationService: NotificationService,
     public locationService: LocationService,
@@ -36,6 +37,10 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone
   ) {}
+
+  ngOnInit(): void {
+    this.initMap();
+  }
 
   initMap(): void {
     this.map = this.mapService.initMap('map');
@@ -56,7 +61,6 @@ export class HomeComponent implements OnInit {
         }
       }
     }
-
   }
 
   renderMarkers(
@@ -76,10 +80,6 @@ export class HomeComponent implements OnInit {
       const coordsWithoutUser = newCoordinate.slice(1);
       this.mapService.addToMarkers(coordsWithoutUser);
     }
-  }
-
-  ngOnInit(): void {
-    this.initMap();
   }
 
   updateLocation(location: Location) {

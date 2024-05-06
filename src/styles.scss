@@ -14,16 +14,17 @@
   @tailwind utilities;
 }
 
-.active{
+.active {
   background-color: black;
 }
 
+/* Tailwind utility classes for buttons */
 .btn-primary {
-  @apply inline-flex items-center px-4 py-2 gap-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white;
+  @apply inline-flex items-center gap-3 text-xs text-white rounded bg-neutral-600 p-3 hover:bg-neutral-950 w-auto h-10;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center px-4 py-2 gap-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-neutral-600 hover:bg-neutral-700 focus:outline-none focus:bg-neutral-950 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500;
+  @apply inline-flex items-center px-4 py-2 gap-3 text-xs text-white rounded bg-neutral-800 hover:bg-neutral-950 w-auto h-10;
 }
 
 .map-container {
