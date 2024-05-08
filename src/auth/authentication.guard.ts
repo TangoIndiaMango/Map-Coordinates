@@ -9,7 +9,7 @@ import { Location, LocationService } from '../services/location.service';
 import { NotificationService } from '../services/notification.service';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 class UserLocation {
   constructor(private locationService: LocationService) {
@@ -19,22 +19,33 @@ class UserLocation {
   userLocation: Location;
 
   get hasValidLocation(): boolean {
-    return this.userLocation && this.userLocation.lat !== 0 && this.userLocation.lng !== 0;
+    return (
+      this.userLocation &&
+      this.userLocation.lat !== 0 &&
+      this.userLocation.lng !== 0
+    );
   }
 }
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class PermissionService {
-  constructor(private userLocation: UserLocation, private router: Router, private notificationService: NotificationService) {}
+  constructor(
+    private userLocation: UserLocation,
+    private router: Router,
+    private notificationService: NotificationService
+  ) {}
 
   canActivate(): boolean {
     if (this.userLocation.hasValidLocation) {
       return true;
     } else {
-      this.notificationService.errorMessage('Error', 'Please add your location');
-      this.router.navigate(['/home']);
+      this.notificationService.errorMessage(
+        'Error',
+        'Please add your location'
+      );
+      this.router.navigate(['/home']).then(() => window.location.reload());
       return false;
     }
   }

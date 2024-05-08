@@ -19,16 +19,24 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ToastModule, LeafletModule, RouterLink, UserDialogComponent, CommonModule],
+  imports: [
+    ToastModule,
+    LeafletModule,
+    RouterLink,
+    UserDialogComponent,
+    CommonModule,
+  ],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
   userLocation: { lat: number; lng: number } = { lat: 0, lng: 0 };
   map!: Leaflet.Map;
   loading: boolean = true;
+  isMapReady = false;
   isActive: boolean = false;
   newCoordinates: any = null;
-  @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef<HTMLElement>;
+  @ViewChild('mapContainer', { static: true })
+  mapContainer!: ElementRef<HTMLElement>;
   constructor(
     private notificationService: NotificationService,
     public locationService: LocationService,
@@ -44,6 +52,7 @@ export class HomeComponent implements OnInit {
 
   initMap(): void {
     this.map = this.mapService.initMap('map');
+    this.isMapReady = true;
     if (this.map) {
       this.newCoordinates = this.locationService.getLocation();
 
@@ -55,6 +64,10 @@ export class HomeComponent implements OnInit {
             if (flag) {
               this.loading = false;
               this.userLocation = this.locationService.getLocation()[0];
+              this.areaService.addMarker(
+                this.userLocation.lat,
+                this.userLocation.lng
+              );
               this.renderMarkers(this.userLocation, null);
             }
           });
@@ -90,8 +103,8 @@ export class HomeComponent implements OnInit {
   }
 
   pickCoordinates() {
-    this.isActive = !this.isActive;
     if (this.map) {
+      this.isActive = true;
       this.map.on('click', (event: Leaflet.LeafletMouseEvent) =>
         this.mapService.handleMapClick(event)
       );
@@ -119,11 +132,12 @@ export class HomeComponent implements OnInit {
     this.isActive = false;
     this.mapService.clearMarkers();
     this.locationService.clearLocation();
+    window.location.reload();
   }
 
   panToNextMarker() {
     const markers = this.areaService.getMarkerData();
-    console.log(markers);
+
     if (markers.length <= 1) {
       this.notificationService.infoMessage(
         'Info',

@@ -23,4 +23,8 @@ export class AreaService {
   getMarkerData() {
     return this.markerData;
   }
+
+  clearMarkers() {
+    return this.markerData = []
+  }
 }
